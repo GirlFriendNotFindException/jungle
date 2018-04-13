@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<settings>
+	<setting name="logImpl" value="LOG4J"></setting>
+</settings>
+
+<!-- 引入包 -->
+<typeAliases>
+	<package name="com.lgd.bean"/>
+</typeAliases> 
+
+<mappers>
+	<mapper resource="com/lgd/model/Cmpt_dtalMapper.xml"/>
+	<mapper resource="com/lgd/model/CompetitionMapper.xml"/>
+	<mapper resource="com/lgd/model/CompetitorMapper.xml"/>
+	<mapper resource="com/lgd/model/CourseMapper.xml"/>
+	<mapper resource="com/lgd/model/JudgesMapper.xml"/>
+	<mapper resource="com/lgd/model/ScoringMapper.xml"/> 
+</mappers> 
+
+</configuration>

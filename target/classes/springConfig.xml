@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xmlns:context="http://www.springframework.org/schema/context" 
+        xmlns:tx="http://www.springframework.org/schema/tx" 
+        xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-4.0.xsd
+        
+        http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"
+        >
+
+	<!--  
+		<context:component-scan/> 扫描指定的包中的类上的注解，常用的注解有：
+
+		@Controller 声明Action组件
+		@Service    声明Service组件    @Service("myMovieLister") 
+		@Repository 声明Dao组件
+		@Component   泛指组件, 当不好归类时. 
+		@RequestMapping("/menu")  请求映射
+		@Resource  用于注入，( j2ee提供的 ) 默认按名称装配，@Resource(name="beanName") 
+		@Autowired 用于注入，(srping提供的) 默认按类型装配 
+		@Transactional( rollbackFor={Exception.class}) 事务管理
+		@ResponseBody
+		@Scope("prototype")   设定bean的作用域
+	-->
+
+	
+
+	<!-- spring就会去自动扫描base-package对应的路径或者该路径的子包下面的java文件，
+			如果扫描到文件中带有@Service(控制层),@Component(通用组件  ),
+			@Repository(数据持久层),@Controller(控制层)等这些注解的类，则把这些类注册为bean 
+			注：在注解后加上例如@Component(value=”abc”)时，注册的这个类的bean的id就是abc -->
+			
+	<!--在指定的包下面扫描被注册的bean-->
+	<context:component-scan base-package="com.lgd"/>
+	
+	
+    <mvc:annotation-driven />  
+	
+	<!-- 使用jdk自动代理为spring中加入@aspectj切面的bean创建代理织入切面 -->	
+	<aop:aspectj-autoproxy/>
+	
+	<bean id="properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:MYSQL.properties"/>
+	</bean>
+	
+	<bean id="dataSource"  class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${jdbc_driver}"/>
+		<property name="url" value="${jdbc_url}"/>
+		<property name="username" value="${jdbc_user}"/>
+		<property name="password" value="${jdbc_password}"/>
+	</bean>
+	
+	<bean id="sqlSessionFact" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:mybatis_config.xml"/>
+	</bean>
+	
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFact"/>
+	</bean>
+	
+	
+	<bean id="mappingJacksonHttpMessageConverter"  
+    class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
+    <property name="supportedMediaTypes">  
+        <list>  
+            <value>application/json</value>  
+            <value>text/html;charset=UTF-8</value>  
+        </list>  
+    </property>  
+	</bean>  
+	<!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->  
+	<bean  
+	    class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">  
+	    <property name="messageConverters">  
+	        <list>  
+	            <ref bean="mappingJacksonHttpMessageConverter" /> <!-- JSON转换器 -->  
+	        </list>  
+	    </property>  
+	</bean>  
+	
+	<!-- 视图解析器    内部资源视图解析器-->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/pages/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<!-- 配置事物管理器 -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	
+	<!-- javaBean  -->
+	<bean id="cmpt_dtal" class="com.lgd.bean.Cmpt_dtal"></bean>
+	<bean id="competitor" class="com.lgd.bean.Competitor"></bean>
+	<bean id="competition" class="com.lgd.bean.Competition"></bean>
+	<bean id="course" class="com.lgd.bean.Course"></bean>
+	<bean id="judges" class="com.lgd.bean.Judges"></bean>
+	<bean id="scoring" class="com.lgd.bean.Scoring"></bean>
+	
+	
+	
+</beans>
