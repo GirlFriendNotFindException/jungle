@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 使用namespace标签   自动生成了 一个实现类来执行sql语句 
+		实现类的方法名与查询的id值一致
+-->
+<mapper namespace="com.lgd.model.CompetitorMapper">
+
+	<!-- 配置javaBena  与数据库的映射 -->
+	<resultMap id="BaseResultMap" type="com.lgd.bean.Competitor">
+		<id column="fid" property="fid" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="fnumber" property="fnumber" jdbcType="VARCHAR" />
+		<result column="age" property="age" jdbcType="INTEGER" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="contactInfo" property="contactInfo" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_list">
+		fid, name, age,sex, description
+	</sql>
+	
+	<!-- 根据fid  查询cmpt_dtal表 -->
+	<insert id="addCompetior"  parameterType="com.lgd.bean.Competitor" >
+		<trim  prefix="insert compititor(" suffix=")" suffixOverrides="," >
+			<if test="name">  name, </if>
+			<if test="fnumber">  fnumber, </if>
+			<if test="sex">  sex, </if>
+			<if test="age">  age, </if>
+			<if test="contactInfo">  contactInfo, </if>
+			<if test="description">  description, </if>
+		</trim>
+		<trim  prefix="values(" suffix=")" suffixOverrides="," >
+			<if test="name">  #{name}, </if>
+			<if test="fnumber">  #{fnumber}, </if>
+			<if test="sex">  #{sex} , </if>
+			<if test="age">  #{age}, </if>
+			<if test="contactInfo">  #{contactInfo}, </if>
+			<if test="description">  #{description}, </if>
+		</trim>
+	</insert>
+	
+	
+	<insert id="addListCompetitor"  parameterType="java.util.List" >
+		insert into  compititor(   name,fnumber, sex, age,  contactInfo, description  )   values
+		<foreach collection="list"  item="item"  index="index" separator=","  >
+			 	(
+			 	#{item.name},
+			 	#{item.fnumber},
+			 	#{item.sex},
+			 	#{item.age},
+				#{item.contactInfo}, 
+				#{item.description})
+		</foreach>
+	</insert>
+	
+</mapper>

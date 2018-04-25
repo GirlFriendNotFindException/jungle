@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 使用namespace标签   自动生成了 一个实现类来执行sql语句 
+		实现类的方法名与查询的id值一致
+-->
+<mapper namespace="com.lgd.model.Cmpt_dtalCompetitorMapper">
+
+	<!-- 配置javaBena  与数据库的映射 -->
+	<resultMap id="BaseResultMap" type="com.lgd.bean.Cmpt_dtalCompetitor">
+		<id column="fid" property="fid" jdbcType="INTEGER" />
+		<result column="competition" property="competition" jdbcType="VARCHAR" />
+		<result column="competitor" property="competitor" jdbcType="VARCHAR" />
+		<result column="course" property="course" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_list">
+		fid, competition, competitor, judges
+	</sql>
+	
+	<!-- 根据fid  查询cmpt_dtal表 -->
+	
+	
+	
+	<insert id="addListCmpt_dtalCompetitor"  parameterType="java.util.Map" >
+		insert into  Cmpt_dtalCompetitor(   competition,course, competitor  )   values
+		<foreach collection="list"  item="item"  index="index" separator=","  >
+			 	(
+			 	#{item.competition},
+			 	#{item.course},
+			 	#{item.competitor}
+			 	)
+		</foreach>
+	</insert>
+	
+</mapper>

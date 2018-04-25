@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 使用namespace标签   自动生成了 一个实现类来执行sql语句 
+		实现类的方法名与查询的id值一致
+-->
+<mapper namespace="com.lgd.model.ScoringMapper">
+	<!-- 配置javaBena  与数据库的映射 -->
+	<resultMap id="BaseResultMap" type="com.lgd.bean.Scoring">
+		<id column="fid" property="fid" jdbcType="INTEGER" />
+		<result column="cmpt_fid" property="cmpt_fid" jdbcType="INTEGER" />
+		<result column="compititor" property="compititor" jdbcType="INTEGER" />
+		<result column="course" property="course" jdbcType="INTEGER" />
+		<result column="judges" property="judges" jdbcType="INTEGER" />
+		<result column="grade" property="grade" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<sql id="Base_Column_list">
+		fid, name, weight,course, description
+	</sql>
+	
+	<!-- <select id="selectCmptorAndCourse" parameterType="java.util.Map" resultType="java.util.Map">
+		select  comptition.name  from Cmpt_dtal inner join  comptition on Cmpt_dtal.cmptfid=comptition.fid
+									inner join  judges on Cmpt_dtal.judges=judges.fid
+									 inner join  competitor  on  Cmpt_dtal.compititor=competitor.fid
+									  inner join  course on Cmpt_dtal.course=course.fid
+									 
+							   where comptition.creator=#{}   and   comptition.state=1;
+	</select> -->
+	
+	
+	
+	
+	
+	
+	
+</mapper>

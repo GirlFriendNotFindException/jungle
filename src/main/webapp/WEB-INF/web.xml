@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+
+
+
+<!-- 加入命名空间     启用异步处理     需要在所有的filter 和   servlet中启用 -->
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns="http://java.sun.com/xml/ns/javaee"  
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"  
+    version="3.0">  
+  <display-name>Archetype Created Web Application</display-name>
+  
+	
+  <!-- 过滤字符集 -->
+  <filter>
+  	<filter-name>characterEcodingFilter</filter-name>
+  	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+  	<async-supported>true</async-supported>
+  	<init-param>
+  		<param-name>encoding</param-name>
+  		<param-value>UTF-8</param-value>
+  	</init-param>
+  	 <init-param>  
+            <param-name>forceEncoding</param-name>  
+            <param-value>true</param-value>  
+     </init-param>  
+  </filter>	
+  <filter-mapping>
+  	<filter-name>characterEcodingFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  
+	  
+  <!-- 配置控制器  -->
+  <servlet>
+  	<servlet-name>dispatcher</servlet-name>
+  	<servlet-class>  org.springframework.web.servlet.DispatcherServlet </servlet-class>
+  	<!-- 
+      	实例化spring容器         
+      	扫描包  找到contorller  以Map(urlpattern, Object_method)存储   
+    -->
+   <init-param>
+       <param-name>contextConfigLocation</param-name>
+       <param-value>classpath:springConfig.xml</param-value>
+   </init-param>
+        
+  	<!-- 启动顺序   1 表示这个控制器随这个servlet容器一起启动 -->
+  	<load-on-startup>1</load-on-startup>  
+  	<async-supported>true</async-supported>
+  	
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>dispatcher</servlet-name>
+  	<url-pattern>*.action</url-pattern>
+  </servlet-mapping>
+ 
+  
+</web-app>

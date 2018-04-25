@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 使用namespace标签   自动生成了 一个实现类来执行sql语句 
+		实现类的方法名与查询的id值一致
+-->
+<mapper namespace="com.lgd.model.UserMapper">
+	<!-- 配置javaBena  与数据库的映射 -->
+	<resultMap id="BaseResultMap" type="com.lgd.bean.User">
+		<id column="fid" property="fid" jdbcType="INTEGER" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="usertype" property="usertype" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<insert id="addUser" parameterType="com.lgd.bean.User">
+		<trim  prefix="insert User(" suffix=")" suffixOverrides="," >
+			<if test="username">  username, </if>
+			<if test="password">  password, </if>
+			<if test="phone">  phone, </if>
+			<if test="usertype">  usertype, </if>
+		</trim>
+		<trim  prefix="values(" suffix=")" suffixOverrides="," >
+			<if test="username">  #{username}, </if>
+			<if test="password">  #{password}, </if>
+			<if test="phone">  #{phone}, </if>
+			<if test="usertype">  #{usertype}, </if>
+		</trim>
+	</insert>
+	
+	
+	<select id="findUser" parameterType="com.lgd.bean.User" resultType="com.lgd.bean.User">
+		select userType from user where username=#{username} and password=#{password};
+	</select>
+	
+	
+	
+</mapper>
