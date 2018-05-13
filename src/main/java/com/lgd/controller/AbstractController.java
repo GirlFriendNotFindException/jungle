@@ -58,21 +58,6 @@ public abstract class AbstractController {
 		t.start();
 	}
 	
-	protected  <T> void  find(final Map<String, String> map,
-			final HttpServletResponse response,  final Class<T> cls, final String sql){
-		Thread t=asyncCall(new Task(){
-			@Override
-			public Object task() {
-				return server.findAll(sql, map, cls);
-			}} ,   new CallBack(){
-
-				@Override
-				public void callback(Object result) throws IOException {
-					out(response, toJson(result));
-				}} );
-		
-		t.start();
-	}
 	
 	
 	/**

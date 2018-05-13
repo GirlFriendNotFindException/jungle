@@ -92,13 +92,13 @@
 			tabindex="1">
 			<thead>
 				<tr>
-					<th>#</th>
-					<th id="name">姓名</th>
-					<th id="fnumber">编号</th>
-					<th id="sex">性别</th>
-					<th id="age">年龄</th>
-					<th id="contactInfo">联系方式</th>
-					<th id="description">描述</th>
+					<th width="10%">#</th>
+					<th width="15%" id="name">姓名</th>
+					<th width="15%" id="fnumber">编号</th>
+					<th width="15%" id="sex">性别</th>
+					<th width="15%" id="age">年龄</th>
+					<th width="15%" id="contactInfo">联系方式</th>
+					<th width="15%" id="description">描述</th>
 				</tr>
 			</thead>
 			<tbody id="competitor_tbody">

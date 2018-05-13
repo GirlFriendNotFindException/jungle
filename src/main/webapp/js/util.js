@@ -83,11 +83,15 @@ var rowCount=0;           /* 总的行数 */
 /* cell 双击事件 */
 function cellDoubleClick( e ){
 	  var _cell=e.target;
+	  var offsetwidths = e.target.offsetWidth-15;
+	  var  offsetheights = e.target.offsetHeight-15;
+	  console.log(e.target.offsetWidth);
 	  var tdvalue=_cell.textContent;
 	  _cell.textContent="";
 	  if(_cell.firstChild==null  ||  _cell.firstChild.localName!="input"){
+		  /*$("#"+_cell.id).css({"padding":0});*/
 		  $("#"+_cell.id).append("<input id='tempinput"+ _cell.id +"' type='text' value='"+tdvalue+"' />");
-		 // $("#tempinput"+_cell.id ).css({"width":"150px", "height":"28px"});
+		 $("#tempinput"+_cell.id ).css({"width": offsetwidths, "height":offsetheights});
 		  $("#tempinput"+_cell.id ).focus();
 	  }
 }
@@ -119,12 +123,45 @@ function outFocus( e ){
 	}
 }
 
+function scoringoutfocus( e ){
+	outFocus(e);
+	var trid=e.target.id;
+	trid="tr_"+trid.match(/_(\S*)_/)[1];
+	if(!isContainNull(trid)){
+		var ths=$("#"+trid).children();
+		var grade=0;
+		var i;
+		for(i=2; i<ths.length-1; i++){
+			var head=getHead("scoring_table");
+			var weight=strategy[head[i]];
+			grade+=ths[i].textContent*weight;
+			if(i==ths.length-2) 
+				$("#"+trid+" th:last").html(grade);
+		}
+		
+	}
+}
+
+
+
+function isContainNull(   trid    ){
+	var ths=$("#"+trid).children();
+	var flag=false;
+	for(var i=0; i<ths.length-1; i++){
+		if(ths[i].textContent=="" ) 
+			return true;
+	}
+	return flag;
+}
+
 /* 增加空行 */
-function addNullRow(table, colNum ){
+
+function addNullRow(tablebodyid, colNum ){
 	rowCount++;
 	var _row=document.createElement("tr");
 	_row.id="tr_"+rowCount;
-	table.append(_row);
+	tablebodyid.append(_row);
+	
 	for(var i=0; i<colNum; i++){
 		var  _cell=document.createElement("th");
 		_cell.id="th_"+rowCount+"_"+i;
@@ -132,6 +169,7 @@ function addNullRow(table, colNum ){
 		//_row.append(_cell);
 		$("#tr_"+rowCount).append(_cell);
 	}
+	
 }
 
 
@@ -220,11 +258,11 @@ function tabelEvent( tableClassName ){
 
 	$("."+ tableClassName).on('dblclick', 'th', function(e) {
 		cellDoubleClick(e)
-	})
+	});
 
 	$("."+ tableClassName).on('blur', 'input', function(e) {
 		outFocus(e)
-	})
+	});
 }
 
 /*  给表格信息追加创建者  和  创建时间*/
@@ -352,7 +390,7 @@ function refreshCourse(){
 
 /*返回name  fid    fnumber*/
 function findCompetition(){
-	var param={"creator":"archer"};
+	var param={"creator":$.parseJSON(localStorage.getItem('user')).username};
 	
 	sendRequest("/jungle/admin/findCompetitionByCreator.action", JSON.stringify(param), function(data){
 		var arr=$(".selectCompetition");
@@ -373,7 +411,7 @@ function findCompetition(){
 
 /*返回name      fnumber*/
 function findCourse(){
-	var param={"creator":"archer"};
+	var param={"creator":$.parseJSON(localStorage.getItem('user')).username};
 	sendRequest("/jungle/admin/findCourseByCreator.action", JSON.stringify(param), function(data){
 		var arr=$(".selectCourse");
 		var index=0;

@@ -126,9 +126,9 @@ public class BaseDao<T> implements IBaseDao<T>{
 	}
 
 	@Override
-	public  Map<String, Map<String, String>> findAll(String sql, T t, Class<T> cls) {
+	public  Map<String, Map<String, String>> findAll(String sql, T t, Class<T> cls, String field) {
 		String path=getMapperPath(cls);
-		return session.selectMap(path+sql, t, "fnumber");
+		return session.selectMap(path+sql, t, field);
 	}
 	
 	

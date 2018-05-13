@@ -26,5 +26,5 @@ public interface IBaseDao<T> {
 	
 	
 	public  void commit();
-	Map<String, Map<String, String>> findAll(String sql, T t, Class<T> cls);
+	Map<String, Map<String, String>> findAll(String sql, T t, Class<T> cls, String field);
 }

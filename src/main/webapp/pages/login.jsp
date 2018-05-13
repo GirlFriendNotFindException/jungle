@@ -88,7 +88,9 @@
 							$("#Login_start_").html(param['username']+"&emsp;|&emsp;");
 							$("#Regist_start_").html(param['usertype']==1?'管理员':'普通用户');
 							$('#Regist_start_').unbind('click');
+							
 					});
+					
 				});
 				
 				setloginItem();
@@ -163,7 +165,7 @@
 			<!--登录框-->
 			<div id="login_container">
 				<div id="lab1">
-					<span id="lab_login">会员登录</span>
+					<span id="lab_login">账号登录</span>
 					<span id="lab_toRegist">
 						&emsp;还没有账号&nbsp;
 						<span id='toRegist' style="color: #EB9316;cursor: pointer;">立即注册</span>
@@ -213,7 +215,7 @@
 			<!-- 会员注册 -->
 			<div id='regist_container' style="display: none;">
 				<div id="lab1">
-					<span id="lab_login">会员注册</span>
+					<span id="lab_login">账号注册</span>
 					<span id="lab_toLogin">
 						&emsp;已有账号&nbsp;
 						<span id='toLogin' style="color: #EB9316;cursor: pointer;">立即登录</span>

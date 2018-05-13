@@ -9,10 +9,10 @@
 	<resultMap id="BaseResultMap" type="com.lgd.bean.Scoring">
 		<id column="fid" property="fid" jdbcType="INTEGER" />
 		<result column="cmpt_fid" property="cmpt_fid" jdbcType="INTEGER" />
-		<result column="compititor" property="compititor" jdbcType="INTEGER" />
-		<result column="course" property="course" jdbcType="INTEGER" />
-		<result column="judges" property="judges" jdbcType="INTEGER" />
-		<result column="grade" property="grade" jdbcType="INTEGER" />
+		<result column="compititor" property="compititor" jdbcType="VARCHAR" />
+		<result column="course" property="course" jdbcType="VARCHAR" />
+		<result column="judges" property="judges" jdbcType="VARCHAR" />
+		<result column="grade" property="grade" jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<sql id="Base_Column_list">
@@ -28,10 +28,41 @@
 							   where comptition.creator=#{}   and   comptition.state=1;
 	</select> -->
 	
+	<select id="findCompetitor"  parameterType="java.util.Map" resultType="java.util.Map">
+		select  distinct comptition.name as competitionname, comptition.fnumber,
+		 compititor.name as competitorname , compititor.fnumber as compititorfnumber,
+		 course.name as coursename, course.weight as cweight,
+		 course.fid as cfid
+		  from  Cmpt_dtalJudges inner join Cmpt_dtalCompetitor on  Cmpt_dtalJudges.competition=Cmpt_dtalCompetitor.competition
+			inner join comptition on comptition.fnumber=Cmpt_dtalJudges.competition
+			inner join compititor on compititor.fnumber=Cmpt_dtalCompetitor.competitor
+			inner join Judges on judges.fnumber=Cmpt_dtalJudges.judges
+			inner join course on course.fnumber=Cmpt_dtalJudges.course
+			where Cmpt_dtalJudges.judges=#{judges};
+	</select>
 	
 	
+	<insert id="addListScoring" parameterType="java.util.List">
+		insert into scoring(cmpt_fid,  judges, compititor, course, grade ) values
+		<foreach collection="list"  item="item"  index="index" separator=","  >
+			 	(
+			 	#{item.cmpt_fid},
+			 	#{item.judges},
+			 	#{item.compititor},
+				#{item.course}, 
+				#{item.grade}
+				)
+		</foreach>
+	</insert>
 	
-	
+	<select id="show" parameterType="java.util.Map" resultType="java.util.Map">
+		select     compititor.name  competitorname, comptition.name competitionname,  avg(grade) ,
+				 compititor.fnumber fnumber
+		from scoring inner join comptition on comptition.fnumber=scoring.cmpt_fid
+			          inner join compititor on compititor.fnumber=scoring.compititor
+			            where judges=#{judges}
+			            group by  compititor.name,  comptition.name
+	</select>
 	
 	
 </mapper>

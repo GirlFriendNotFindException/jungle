@@ -29,6 +29,16 @@
 		</trim>
 	</insert>
 	
+	<insert id="addListUser"  parameterType="java.util.List" >
+		insert into  user(   username,  phone   )   values
+		<foreach collection="list"  item="item"  index="index" separator=","  >
+			 	(
+			 	#{item.fnumber},
+			 	#{item.contactInfo}
+			 	)
+		</foreach>
+	</insert>
+	
 	
 	<select id="findUser" parameterType="com.lgd.bean.User" resultType="com.lgd.bean.User">
 		select userType from user where username=#{username} and password=#{password};

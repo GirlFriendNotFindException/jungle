@@ -46,7 +46,7 @@
 	
 	
 	<select id="findCompetitionByCreator" parameterType="java.util.Map"  resultType="java.util.Map">
-		select name, fid, fnumber from comptition where creator=#{creator} order by holddate; 
+		select name, fid, fnumber from comptition where creator=#{creator} order by holddate desc; 
 	</select>
 	
 	

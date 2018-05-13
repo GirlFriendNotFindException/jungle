@@ -16,6 +16,7 @@ import com.lgd.bean.Competition;
 import com.lgd.bean.Competitor;
 import com.lgd.bean.Course;
 import com.lgd.bean.Judges;
+import com.lgd.bean.Scoring;
 import com.lgd.bean.User;
 /**
  * 多个线程调用同一个对象的同一个方法： 
@@ -66,6 +67,9 @@ public class Controller extends AbstractController{
 	public  void  addJudges(@RequestBody final List<Judges>  judges, final HttpServletResponse response) throws IOException{
 		Object obj=task(judges);
 		out(response, toJson(obj));
+		
+		int r=server.addList(judges, User.class);
+		out(response, toJson(r));
 	}
 	
 	
@@ -96,11 +100,20 @@ public class Controller extends AbstractController{
 	public  void  addCompetitor(@RequestBody final List<Competitor>  Competitor, final HttpServletResponse response) throws IOException{
 		Object obj=task(Competitor);
 		out(response, toJson(obj));
+		
+		
+		
 	}
 	
 	@RequestMapping(value="/admin/addListCmpt_dtalCompetitor.action", consumes="application/json;charset=UTF-8")
 	public  void  addListCmpt_dtalCompetitor(@RequestBody final List<Cmpt_dtalCompetitor>  Cmpt_dtalCompetitor, final HttpServletResponse response) throws IOException{
 		int  r=server.addList(Cmpt_dtalCompetitor, Cmpt_dtalCompetitor.class);
+		out(response, toJson(r));
+	}
+	
+	@RequestMapping(value="/scoring/scoring.action", consumes="application/json;charset=UTF-8")
+	public  void  scoring(@RequestBody final List<Scoring>  Scoring, final HttpServletResponse response) throws IOException{
+		int  r=server.addList(Scoring, Scoring.class);
 		out(response, toJson(r));
 	}
 	
@@ -110,14 +123,21 @@ public class Controller extends AbstractController{
 	@RequestMapping(value="/admin/findCompetitionByCreator.action", consumes="application/json;charset=UTF-8")
 	public  void  findCompetitionByCreator(@RequestBody final Map<String, String> map, final HttpServletResponse response) throws IOException{
 		//find(map, response, Competition.class, "findCompetitionByCreator");
-		Object obj=server.findAll("findCompetitionByCreator", map, Competition.class);
+		Object obj=server.findAll("findCompetitionByCreator", map, Competition.class, "fnumber");
 		out(response, toJson(obj));
 	}
 	
 	
 	@RequestMapping(value="/admin/findCourseByCreator.action", consumes="application/json;charset=UTF-8")
 	public  void  findCourseByCreator(@RequestBody final Map<String, String> map, final HttpServletResponse response) throws IOException{
-		Object obj=server.findAll("findCourseByCreator", map, Course.class);
+		Object obj=server.findAll("findCourseByCreator", map, Course.class,"fnumber");
+		out(response, toJson(obj));
+	}
+	
+	
+	@RequestMapping(value="/scoring/findCompetitor.action", consumes="application/json;charset=UTF-8")
+	public  void  findCompetitor(@RequestBody final Map<String, String> map, final HttpServletResponse response) throws IOException{
+		Object obj=server.findAll("findCompetitor", map, Scoring.class, "cfid");
 		out(response, toJson(obj));
 	}
 	
@@ -140,6 +160,11 @@ public class Controller extends AbstractController{
 		out(response, toJson(obj));
 	}
 	
+	@RequestMapping(value="/record/show.action", consumes="application/json;charset=UTF-8")
+	public  void  show(@RequestBody final Map<String, String> map, final HttpServletResponse response) throws IOException{
+		Object obj= server.findAll("show", map, Scoring.class, "fnumber");
+		out(response, toJson(obj));
+	}
 	
 	
 	public  <T> Object task( List<T> list) {

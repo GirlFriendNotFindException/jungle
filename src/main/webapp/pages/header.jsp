@@ -45,7 +45,7 @@
           <a href="competitor.jsp" onclick="">选手信息</a>
         </li>
         <li>
-          <a href="" onclick="">得分记录</a>
+          <a href="record.jsp" onclick="">得分记录</a>
         </li>
         <li class="active">
          <a href="admin.jsp" onclick="" >管理员</a>
@@ -55,6 +55,7 @@
         <!-- <li><a href=" onclick="" target="_blank">主题/模板</a></li> -->
         <li><a   id="Login_start_" style="text-align: right">登录&emsp;|&emsp;</a></li>
         <li><a   id="Regist_start_" style="text-align: left">注册</a></li>
+        <li><a   id="competitionFnumber" style="display:none">aa</a></li>
       </ul>
     </nav>
   </div>

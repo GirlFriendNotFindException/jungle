@@ -99,6 +99,8 @@ $(function() {
 							</tr>
 						</thead>
 						<tbody id="course_tbody">
+						
+						
 						</tbody>
 					</table>
 				</div>

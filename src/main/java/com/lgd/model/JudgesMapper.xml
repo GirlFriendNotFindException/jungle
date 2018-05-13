@@ -43,6 +43,8 @@
 		</trim>
 	</insert>
 	
+	
+	
 	<insert id="addListJudges"  parameterType="java.util.List" >
 		insert into  judges(   name,fnumber, sex, weight, contactInfo, description  )   values
 		<foreach collection="list"  item="item"  index="index" separator=","  >

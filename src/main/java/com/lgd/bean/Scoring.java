@@ -25,97 +25,17 @@ public class Scoring implements Serializable{
 	 * 
 	 */
 	private Integer fid;
-	private Integer cmpt_fid;
-	private Integer compititor;
-	private Integer judges;
-	private Integer course;
-	private Integer grade;
+	private String cmpt_fid;
+	private String compititor;
+	private String judges;
+	private String course;
+	private String grade;
 	
 	public Scoring() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 
-	public Integer getFid() {
-		return fid;
-	}
-
-
-
-	public void setFid(Integer fid) {
-		this.fid = fid;
-	}
-
-
-
-	public Integer getCmpt_fid() {
-		return cmpt_fid;
-	}
-
-
-
-	public void setCmpt_fid(Integer cmpt_fid) {
-		this.cmpt_fid = cmpt_fid;
-	}
-
-
-
-	public Integer getCompititor() {
-		return compititor;
-	}
-
-
-
-	public void setCompititor(Integer compititor) {
-		this.compititor = compititor;
-	}
-
-
-
-	public Integer getJudges() {
-		return judges;
-	}
-
-
-
-	public void setJudges(Integer judges) {
-		this.judges = judges;
-	}
-
-
-
-	public Integer getCourse() {
-		return course;
-	}
-
-
-
-	public void setCourse(Integer course) {
-		this.course = course;
-	}
-
-
-
-	public Integer getGrade() {
-		return grade;
-	}
-
-
-
-	public void setGrade(Integer grade) {
-		this.grade = grade;
-	}
-
-
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-
-
-	public Scoring(Integer fid, Integer cmpt_fid, Integer compititor, Integer judges, Integer course, Integer grade) {
+	public Scoring(Integer fid, String cmpt_fid, String compititor, String judges, String course, String grade) {
 		super();
 		this.fid = fid;
 		this.cmpt_fid = cmpt_fid;
@@ -125,13 +45,69 @@ public class Scoring implements Serializable{
 		this.grade = grade;
 	}
 
+	public Integer getFid() {
+		return fid;
+	}
 
+	public void setFid(Integer fid) {
+		this.fid = fid;
+	}
+
+	public String getCmpt_fid() {
+		return cmpt_fid;
+	}
+
+	public void setCmpt_fid(String cmpt_fid) {
+		this.cmpt_fid = cmpt_fid;
+	}
+
+	public String getCompititor() {
+		return compititor;
+	}
+
+	public void setCompititor(String compititor) {
+		this.compititor = compititor;
+	}
+
+	public String getJudges() {
+		return judges;
+	}
+
+	public void setJudges(String judges) {
+		this.judges = judges;
+	}
+
+	public String getCourse() {
+		return course;
+	}
+
+	public void setCourse(String course) {
+		this.course = course;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	@Override
 	public String toString() {
 		return "Scoring [fid=" + fid + ", cmpt_fid=" + cmpt_fid + ", compititor=" + compititor + ", judges=" + judges
 				+ ", course=" + course + ", grade=" + grade + "]";
 	}
+	
+	
+
+	
+
+
 	
 	
 	

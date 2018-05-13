@@ -84,10 +84,10 @@ create table cmpt_dtalJudges(
 --比赛记录打分表
 create table scoring(
 	fid int  primary key auto_increment,
-	cmpt_fid int references comptition(fid),
-	compititor varchar(30) not null, 
-	judges int not null ,
-	course int references course(name),
-	grade smallint 
+	cmpt_fid varchar(32) not null,
+	compititor varchar(32) not null, 
+	judges varchar(32) not null ,
+	course varchar(32) ,
+	grade int 
 );
 alter table scoring  add column fnumber varchar(32) not null unique not null;

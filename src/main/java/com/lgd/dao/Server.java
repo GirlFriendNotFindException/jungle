@@ -37,8 +37,8 @@ public class Server {
 		return r;
 	}
 	
-	public  <T> Object findAll(String sql, Map<String, String> map, Class<T> cls){
-		Object obj=dao.findAll(sql, map, cls);
+	public  <T> Object findAll(String sql, Map<String, String> map, Class<T> cls, String field){
+		Object obj=dao.findAll(sql, map, cls, field);
 		return obj;  
 	}
 	
